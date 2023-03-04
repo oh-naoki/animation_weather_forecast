@@ -1,5 +1,6 @@
 import 'package:animation_weather_forecast/cloud_emoji.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,13 +58,13 @@ class _WeatherForecastState extends State<WeatherForecast> {
     return Container(
       color: Colors.grey.shade600.withOpacity(0.8),
       child: Stack(
-        children: [
+        children: const [
           FractionallySizedBox(
             widthFactor: 1.0,
             heightFactor: 0.2,
             child: CloudEmoji(),
           ),
-          const SafeArea(
+          SafeArea(
             child: SizedBox(
               width: double.infinity,
               height: double.infinity,
@@ -85,40 +86,35 @@ class Tempreture extends StatelessWidget {
       margin: const EdgeInsets.only(top: 32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
+        children: [
           Text(
-            "杉並区",
+            "東京",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 40,
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+            ),
+            padding: EdgeInsets.all(8),
+            child: SvgPicture.network("https://www.jma.go.jp/bosai/forecast/img/200.svg"),
+          ),
+          Text(
+            "最低: ${6}° 最高: ${18}°",
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 32,
             ),
           ),
-          Text(
-            "17°",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 92,
-            ),
+          Padding(
+            padding: EdgeInsets.only(top: 16),
+            child: WeekyForecaseCard(),
           ),
-          Text(
-            "曇り",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            "最高:${18}° 最低:${6}°",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-          WeekyForecaseCard(),
         ],
       ),
     );
@@ -139,13 +135,33 @@ class WeekyForecaseCard extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(16),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("今日"),
-                  Text("最高 18°   最低 9°"),
+                  Text(
+                    "2023/03/06",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
+                  ),
+                  SvgPicture.network("https://www.jma.go.jp/bosai/forecast/img/200.svg"),
+                  Text(
+                    "晴れときどき曇り",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    "最低 9° 最高 18°",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                 ],
               ),
             ],
